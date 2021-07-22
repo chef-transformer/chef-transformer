@@ -1,4 +1,12 @@
-![avatar](images/../asset/images/chef-transformer.png)
+---
+title: Chef Transformer
+emoji: 🍲
+colorFrom: blue
+colorTo: red
+sdk: streamlit
+app_file: app.py
+pinned: false
+---
 
 # Chef Transformer (T5) 
 > This is part of the [Flax/Jax Community Week](https://discuss.huggingface.co/t/recipe-generation-model/7475), organized by [HuggingFace](https://huggingface.co/) and TPU usage sponsored by Google.
@@ -210,11 +218,11 @@ Output:
 
 The following table summarizes the scores obtained by the **Chef Transformer**. Those marked as (*) are the baseline models.
 
-|      Model      | BLEU  |  WER  | COSIM | ROUGE-2 |
-| :-------------: | :---: | :---: | :---: | :-----: |
-|   Recipe1M+ *   | 0.844 | 0.786 | 0.589 |    -    |
-|   RecipeNLG *   | 0.866 | 0.751 | 0.666 |    -    |
-| ChefTransformer | 0.203 | 0.709 | 0.714 |  0.290  |
+|      Model      |  WER  | COSIM | ROUGE-2 |
+| :-------------: | :---: | :---: | :-----: |
+|   Recipe1M+ *   | 0.786 | 0.589 |    -    |
+|   RecipeNLG *   | 0.751 | 0.666 |    -    |
+| ChefTransformer | 0.709 | 0.714 |  0.290  |
 
 ## Streamlit demo for Chef Transformer
 ### Launch demo
