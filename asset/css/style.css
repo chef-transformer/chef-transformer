@@ -1,0 +1,83 @@
+body {
+    background-color: #fff;
+}
+
+
+.fullScreenFrame > div {
+    display: flex;
+    justify-content: center;
+}
+.comma:not(:empty) ~ .comma:not(:empty):before {
+  content: ", ";
+}
+.strong {
+    font-weight: bold;
+}
+.d-block {
+    display: block;
+}
+.extra-info {
+    font-weight: normal;
+    font-style: italic;
+    font-size: small;
+}
+
+.contributors {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f3f3f3;
+    padding-bottom: 10px;
+}
+.contributors a.contributor {
+    text-decoration: none;
+    color: #9b9dad;
+}
+.contributors a.contributor:hover {
+    text-decoration: underline;
+}
+
+.story-box {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+.r-text-recipe {
+    padding-left: 30px;
+    margin-left: 10px;
+    border-left: 1px dashed #eee;
+}
+
+.divider {
+    margin: 5px auto;
+    width: 400px;
+    max-width: 100%;
+    position:relative;
+}
+
+.divider-mask {
+    overflow: hidden;
+    height: 20px;
+}
+
+.divider-mask:after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 170px;
+    height: 0px;
+    border-bottom: 2px solid #e9a726;
+    border-radius: 10px;
+}
+
+.r-text-recipe .food-title {
+    text-align: center;
+}
+.r-text-recipe .food-title img {
+    max-width: 120px;
+}
+.r-text-recipe .food-title h2 {
+}
+.ingredients-list {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
