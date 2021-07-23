@@ -1,4 +1,4 @@
-streamlit==0.84.1
+streamlit
 transformers
 torch
 Pillow

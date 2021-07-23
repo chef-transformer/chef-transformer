@@ -5,11 +5,8 @@ from transformers import pipeline, set_seed
 from transformers import AutoTokenizer
 
 from PIL import (
-    Image,
     ImageFont,
-    ImageDraw
 )
-import requests
 
 import os
 import re
@@ -124,7 +121,7 @@ class TextGeneration:
 
     def generate(self, items, generation_kwargs):
         recipe = self.dummy_outputs[0]
-        recipe = self.dummy_outputs[random.randint(0, len(self.dummy_outputs) - 1)]
+        # recipe = self.dummy_outputs[random.randint(0, len(self.dummy_outputs) - 1)]
 
         if not self.debug:
             generation_kwargs["num_return_sequences"] = 1
@@ -208,7 +205,7 @@ def main():
         st.image(load_image_from_local("asset/images/chef-transformer-transparent.png"), width=300)
         st.markdown(meta.SIDEBAR_INFO, unsafe_allow_html=True)
 
-        with st.beta_expander("Where did this story start?"):
+        with st.beta_expander("Where did this story start?", expanded=True):
             st.markdown(meta.STORY, unsafe_allow_html=True)
 
     with col1:
