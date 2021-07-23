@@ -18,112 +18,20 @@ import textwrap
 from examples import EXAMPLES
 import dummy
 import meta
-from utils import (
+from utils import ext
+from utils.api import generate_cook_image
+from utils.draw import generate_food_with_logo_image, generate_recipe_image
+from utils.st import (
     remote_css,
     local_css,
+
+)
+from utils.utils import (
     load_image_from_url,
     load_image_from_local,
     image_to_base64,
     pure_comma_separation
 )
-
-
-def generate_cook_image(query, app_id, app_key):
-    api_url = f"https://api.edamam.com/api/recipes/v2?type=public&q={query}&app_id={app_id}&app_key={app_key}&field=image"
-
-    try:
-        r = requests.get(api_url)
-        if r.status_code != 200:
-            return None
-
-        rj = r.json()
-        if "hits" not in rj or not len(rj["hits"]) > 0:
-            return None
-
-        data = rj["hits"]
-        data = data[random.randint(1, min(5, len(data) - 1))] if len(data) > 1 else data[0]
-
-        if "recipe" not in data or "image" not in data["recipe"]:
-            return None
-
-        image = data["recipe"]["image"]
-        return image
-    except Exception as e:
-        return None
-
-
-def generate_food_with_logo_image(bg_path, logo_path, food_url, no_food="asset/frame/no_food.png"):
-    bg = Image.open(bg_path)
-    width, height = bg.size
-
-    logo = Image.open(logo_path)
-    logo_width, logo_height, logo_ratio, logo_rb, logo_mb = logo.size + (3, -20, 45)
-    logo_width, logo_height = (logo_width // logo_ratio, logo_height // logo_ratio)
-    logo = logo.resize((logo_width, logo_height))
-
-    food = load_image_from_url(food_url, rgba_mode=True, default_image=no_food)
-
-    food_width, food_height = (300, 300)
-    food = food.resize((food_width, food_height))
-
-    bg.paste(food, (0, 0), food)
-    bg.paste(logo, (width - logo_width - logo_rb, height - logo_height - logo_mb), logo)
-
-    return bg
-
-
-def generate_recipe_image(
-        recipe_data,
-        bg_path,
-        food_logo_ia,
-        fonts,
-        bg_color="#ffffff"
-):
-    bg = Image.open(bg_path)
-    bg.paste(food_logo_ia, (50, 50), food_logo_ia)
-    bg_color = Image.new("RGBA", bg.size, bg_color)
-    bg_color.paste(bg, mask=bg)
-
-    im_editable = ImageDraw.Draw(bg_color)
-    im_editable.text(
-        (418, 30),
-        textwrap.fill(recipe_data["title"], 15).replace(" \n", "\n"),
-        (61, 61, 70),
-        font=fonts["title"],
-    )
-
-    im_editable.text(
-        (100, 450),
-        "Ingredients",
-        (61, 61, 70),
-        font=fonts["body_bold"],
-    )
-    ingredients = recipe_data["ingredients"]
-    ingredients = [textwrap.fill(item, 30).replace("\n", "\n   ") for item in ingredients]
-
-    im_editable.text(
-        (50, 520),
-        "\n".join([f"- {item}" for item in ingredients]),
-        (61, 61, 70),
-        font=fonts["body"],
-    )
-
-    im_editable.text(
-        (700, 450),
-        "Directions",
-        (61, 61, 70),
-        font=fonts["body_bold"],
-    )
-
-    directions = recipe_data["directions"]
-    directions = [textwrap.fill(item, 70).replace("\n", "\n   ") for item in directions]
-    im_editable.text(
-        (430, 520),
-        "\n".join([f"{i + 1}. {item}" for i, item in enumerate(directions)]).strip(),
-        (61, 61, 70),
-        font=fonts["body"],
-    )
-    return bg_color
 
 
 class TextGeneration:
@@ -215,6 +123,7 @@ class TextGeneration:
         return frame
 
     def generate(self, items, generation_kwargs):
+        recipe = self.dummy_outputs[0]
         recipe = self.dummy_outputs[random.randint(0, len(self.dummy_outputs) - 1)]
 
         if not self.debug:
@@ -291,9 +200,10 @@ def main():
     # else:
     #     get_random_frame = generator.frames[0]
 
+    remote_css("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@600&display=swap")
     local_css("asset/css/style.css")
 
-    col1, col2 = st.beta_columns([4, 3])
+    col1, col2 = st.beta_columns([6, 4])
     with col2:
         st.image(load_image_from_local("asset/images/chef-transformer-transparent.png"), width=300)
         st.markdown(meta.SIDEBAR_INFO, unsafe_allow_html=True)
@@ -321,12 +231,13 @@ def main():
             prompt_box = EXAMPLES[prompt]
 
         items = st.text_area(
-            'Insert your ingredients here (separated by `,`): ',
+            'Insert your food items here (separated by `,`): ',
             pure_comma_separation(prompt_box, return_list=False),
         )
         items = pure_comma_separation(items, return_list=False)
         entered_items = st.empty()
-        recipe_button = st.button('Get Recipe!')
+
+    recipe_button = st.button('Get Recipe!')
 
     st.markdown(
         "<hr />",
@@ -354,14 +265,21 @@ def main():
                 food_image = generated_recipe["image"]
                 food_image = load_image_from_url(food_image, rgba_mode=True, default_image=generator.no_food)
                 food_image = image_to_base64(food_image)
-                ingredients = generated_recipe["ingredients"]
+
+                ingredients = ext.ingredients(
+                    generated_recipe["ingredients"],
+                    pure_comma_separation(items, return_list=True)
+                )
+
                 directions = [textwrap.fill(item, 70).replace("\n", "\n   ") for item in
                               generated_recipe["directions"]]
+                directions = ext.directions(directions)
+
                 generated_recipe["by"] = chef
 
-                r1, r2 = st.beta_columns([3, 5])
+                r1, r2 = st.beta_columns([6, 2])
 
-                with r1:
+                with r2:
                     # st.write(st.session_state.get_random_frame)
                     # if hasattr(st, "session_state"):
                     #     recipe_post = generator.generate_frame(generated_recipe, st.session_state.get_random_frame)
@@ -378,21 +296,21 @@ def main():
                         output_format="PNG"
                     )
 
-                with r2:
+                with r1:
                     st.markdown(
                         " ".join([
                             "<div class='r-text-recipe'>",
                             "<div class='food-title'>",
                             f"<img src='{food_image}' />",
-                            f"<h2>{title}</h2>",
+                            f"<h2 class='font-title text-bold'>{title}</h2>",
                             "</div>",
                             '<div class="divider"><div class="divider-mask"></div></div>',
-                            "<h3>Ingredients</h3>",
-                            "<ul class='ingredients-list'>",
+                            "<h3 class='ingredients font-body text-bold'>Ingredients</h3>",
+                            "<ul class='ingredients-list font-body'>",
                             " ".join([f'<li>{item}</li>' for item in ingredients]),
                             "</ul>",
-                            "<h3>Directions</h3>",
-                            "<ol class='ingredients-list'>",
+                            "<h3 class='directions font-body text-bold'>Directions</h3>",
+                            "<ol class='ingredients-list font-body'>",
                             " ".join([f'<li>{item}</li>' for item in directions]),
                             "</ol>",
                             "</div>"

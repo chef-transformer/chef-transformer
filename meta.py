@@ -1,6 +1,6 @@
 HEADER_INFO = """""".strip()
 SIDEBAR_INFO = """
-<div class="contributors">
+<div class="contributors font-body text-bold">
 <a class="contributor comma" href="https://huggingface.co/m3hrdadfi">Mehrdad Farahani</a>
 <a class="contributor comma" href="https://huggingface.co/dk-crazydiv">Kartik Godawat</a>
 <a class="contributor comma" href="https://huggingface.co/hassiahk">Haswanth Aekula</a>
@@ -9,13 +9,15 @@ SIDEBAR_INFO = """
 </div>
 """
 CHEF_INFO = """
-<p class="strong">Welcome to our lovely restaurant! 
+<h2 class="font-title">Welcome to our lovely restaurant! </h2>
+<p class="strong font-body">
 <span class="d-block extra-info">(We are at your service with two of the best chefs in the world: Chef Scheherazade, 
-Chef Giovanni. Scheherazade is known for being more creative whereas Giovanni is more meticulous.)</span></p>
+Chef Giovanni. Scheherazade is known for being more creative whereas Giovanni is more meticulous.)</span>
+</p>
 """.strip()
 PROMPT_BOX = "Add custom ingredients here (separated by `,`): "
 STORY = """
-<div class="story-box">
+<div class="story-box font-body">
 <p>
 Hello everyone 👋, I am <strong>Chef Transformer</strong>, 
 the owner of this restaurant. I was made by a group of <a href="https://huggingface.co/flax-community/t5-recipe-generation#team-members">NLP Engineers</a> to train my two prodigy recipe creators: <strong>Chef Scheherazade</strong> and <strong>Chef Giovanni</strong>. 
@@ -28,8 +30,7 @@ The NLP engineers helped guide the learning process so that the chefs could actu
 I trained my chefs by asking them to generate a title, a list of ingredients (including amounts!), and a list of directions after giving them just a simple list of food items. 
 </p>
 
-<pre>
-[Input]
+<pre>[Inputs]
     {food items*: separated by comma}
      
 [Targets]
