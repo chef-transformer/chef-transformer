@@ -1,9 +1,9 @@
-import streamlit as st
-import json
-from PIL import Image
-from io import BytesIO
 import base64
+import json
+from io import BytesIO
+from PIL import Image
 import requests
+import re
 
 
 def load_image_from_local(image_path, image_resize=None):
@@ -32,13 +32,6 @@ def load_image_from_url(image_url, rgba_mode=False, image_resize=None, default_i
     return image
 
 
-def image_to_base64(image_array):
-    buffered = BytesIO()
-    image_array.save(buffered, format="PNG")
-    image_b64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
-    return f"data:image/png;base64, {image_b64}"
-
-
 def load_text(text_path):
     text = ''
     with open(text_path) as f:
@@ -55,13 +48,11 @@ def load_json(json_path):
     return jdata
 
 
-def local_css(css_path):
-    with open(css_path) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-
-def remote_css(css_url):
-    st.markdown(f'<link href="{css_url}" rel="stylesheet">', unsafe_allow_html=True)
+def image_to_base64(image_array):
+    buffered = BytesIO()
+    image_array.save(buffered, format="PNG")
+    image_b64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    return f"data:image/png;base64, {image_b64}"
 
 
 def unique_list(seq):
@@ -72,7 +63,11 @@ def unique_list(seq):
 
 def pure_comma_separation(list_str, return_list=True):
     r = unique_list([item.strip() for item in list_str.lower().split(",") if item.strip()])
-    # r = list(set([x.strip() for x in list_str.strip().split(',') if len(x.strip()) > 0]))
     if return_list:
         return r
     return ", ".join(r)
+
+
+def replace_regex(text, map_dict):
+    pattern = "|".join(map(re.escape, map_dict.keys()))
+    return re.sub(pattern, lambda m: map_dict[m.group()], str(text))

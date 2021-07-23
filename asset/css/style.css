@@ -2,6 +2,18 @@ body {
     background-color: #fff;
 }
 
+.font-title {
+    font-family: 'Poppins', sans-serif !important;
+}
+.font-body {
+    font-family: 'Montserrat', sans-serif !important;
+}
+.text-bold {
+    font-weight: normal !important;
+}
+.text-bold {
+    font-weight: bold !important;
+}
 
 .fullScreenFrame > div {
     display: flex;
@@ -29,7 +41,7 @@ body {
 }
 .contributors a.contributor {
     text-decoration: none;
-    color: #9b9dad;
+    color: #585858;
 }
 .contributors a.contributor:hover {
     text-decoration: underline;
@@ -37,17 +49,24 @@ body {
 
 .story-box {
     overflow-y: scroll;
-    max-height: 300px;
+    max-height: 240px;
+}
+
+.story-box p {
+    font-size: 0.85rem;
+}
+.story-box pre {
+    font-size: 0.6rem;
 }
 
 .r-text-recipe {
-    padding-left: 30px;
-    margin-left: 10px;
-    border-left: 1px dashed #eee;
+    /* padding-left: 30px;
+    margin-left: 10px;*/
+    border-right: 1px dashed #eee;
 }
 
 .divider {
-    margin: 5px auto;
+    margin: 5px 0;
     width: 400px;
     max-width: 100%;
     position:relative;
@@ -61,23 +80,53 @@ body {
 .divider-mask:after {
     content: '';
     display: block;
-    margin: 0 auto;
     width: 170px;
     height: 0px;
     border-bottom: 2px solid #e9a726;
     border-radius: 10px;
+    left: 0px;
 }
 
 .r-text-recipe .food-title {
-    text-align: center;
+    text-align: left;
 }
 .r-text-recipe .food-title img {
-    max-width: 120px;
+    max-width: 300px;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
 }
 .r-text-recipe .food-title h2 {
 }
+.ingredients {}
 .ingredients-list {
     columns: 2;
     -webkit-columns: 2;
     -moz-columns: 2;
+}
+.directions {
+    clear: both;
+    float: none;
+    padding-top: 20px;
+    display: block;
+}
+.directions-list {}
+
+
+@media only screen and (max-width: 600px) {
+    .r-text-recipe {
+        border-right: 0;
+        border-bottom: 1px dashed #eee;
+    }
+    .r-text-recipe .food-title img {
+        max-width: 200px;
+    }
+    .directions {
+        padding-top: 0px;
+    }
+    .ingredients-list {
+        columns: 1;
+        -webkit-columns: 1;
+        -moz-columns: 1;
+    }
 }

@@ -94,8 +94,7 @@ generation_kwargs = {
 special_tokens = tokenizer.all_special_tokens
 tokens_map = {
     "<sep>": "--",
-    "<section>": "\
-"
+    "<section>": "\n"
 }
 def skip_special_tokens(text, special_tokens):
     for token in special_tokens:
@@ -170,8 +169,7 @@ for text in generated:
         else:
             section_info = [f"  - {i+1}: {info.strip().capitalize()}" for i, info in enumerate(section.split("--"))]
             print(f"[{headline}]:")
-            print("\
-".join(section_info))
+            print("\n".join(section_info))
 
     print("-" * 130)
 ```
@@ -224,8 +222,8 @@ The following table summarizes the scores obtained by the **Chef Transformer**. 
 |   RecipeNLG *   | 0.751 | 0.666 |    -    |
 | ChefTransformer | 0.709 | 0.714 |  0.290  |
 
-## Streamlit demo for Chef Transformer
-### Launch demo
+## Streamlit demo
+
 ```bash
 streamlit run app.py
 ```
