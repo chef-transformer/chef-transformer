@@ -1,14 +1,20 @@
 from PIL import (
     Image,
-    ImageFont,
     ImageDraw
 )
 import textwrap
-from .utils import load_image_from_url
-from .ext import (
+from utils.utils import load_image_from_url
+from utils.ext import (
     ingredients as ext_ingredients,
     directions as ext_directions
 )
+
+
+# from .utils import load_image_from_url
+# from .ext import (
+#     ingredients as ext_ingredients,
+#     directions as ext_directions
+# )
 
 
 def generate_food_with_logo_image(bg_path, logo_path, food_url, no_food="asset/frame/no_food.png"):
@@ -77,6 +83,8 @@ def generate_recipe_image(
 
     directions = recipe_data["directions"]
     directions = [textwrap.fill(item, 70).replace("\n", "\n   ").capitalize() for item in directions]
+    directions = ext_directions(directions)
+
     im_editable.text(
         (430, 520),
         "\n".join([f"{i + 1}. {item}" for i, item in enumerate(directions)]).strip(),
