@@ -20,7 +20,7 @@ recipes = [
             "makes 12 servings.",
         ],
         'ingredients': [
-            "1 lb. phyllo dough, thawed",
+            "1 lb. phyllo dough, thawed 1 lb. phyllo dough, thawed",
             "1 c. unsalted butter, melted",
             "2 c chopped walnuts",
             "1/2 tsp. cinnamon",

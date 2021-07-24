@@ -64,8 +64,8 @@ def generate_recipe_image(
         font=fonts["body_bold"],
     )
     ingredients = recipe_data["ingredients"]
-    ingredients = [textwrap.fill(item, 30).replace("\n", "\n   ") for item in ingredients]
     ingredients = ext_ingredients(ingredients, [], without_mapping=True)
+    ingredients = [textwrap.fill(item, 30).replace("\n", "\n   ") for item in ingredients]
 
     im_editable.text(
         (50, 520),
@@ -82,8 +82,8 @@ def generate_recipe_image(
     )
 
     directions = recipe_data["directions"]
-    directions = [textwrap.fill(item, 70).replace("\n", "\n   ").capitalize() for item in directions]
     directions = ext_directions(directions)
+    directions = [textwrap.fill(item, 70).replace("\n", "\n    ").capitalize() for item in directions]
 
     im_editable.text(
         (430, 520),

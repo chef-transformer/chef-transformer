@@ -267,10 +267,10 @@ def main():
                     generated_recipe["ingredients"],
                     pure_comma_separation(items, return_list=True)
                 )
+                # ingredients = [textwrap.fill(item, 10).replace("\n", "<br />   ") for item in ingredients]
 
-                directions = [textwrap.fill(item, 70).replace("\n", "\n   ") for item in
-                              generated_recipe["directions"]]
-                directions = ext.directions(directions)
+                directions = ext.directions(generated_recipe["directions"])
+                # directions = [textwrap.fill(item, 70).replace("\n", "<br />   ") for item in directions]
 
                 generated_recipe["by"] = chef
 
