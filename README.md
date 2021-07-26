@@ -195,7 +195,7 @@ Output:
   - 6: Cook and stir until thickened and bubbly.
   - 7: Stir in corn and bacon.
   - 8: Pour over macaroni and mix well.
-----------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 [TITLE]: Grilled provolone and bacon sandwich
 [INGREDIENTS]:
   - 1: 2 slices provolone cheese
@@ -209,7 +209,7 @@ Output:
   - 4: Top with the other slice of bread.
   - 5: Heat a skillet over medium heat.
   - 6: Place the sandwich in the skillet and cook until the cheese is melted and the bread is golden brown.
-----------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 ```
 
 ## Evaluation
@@ -221,6 +221,7 @@ The following table summarizes the scores obtained by the **Chef Transformer**. 
 |   Recipe1M+ *   | 0.786 | 0.589 |    -    |
 |   RecipeNLG *   | 0.751 | 0.666 |    -    |
 | ChefTransformer | 0.709 | 0.714 |  0.290  |
+
 
 ## Streamlit demo
 
