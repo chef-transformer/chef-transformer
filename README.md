@@ -75,21 +75,22 @@ model = FlaxAutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME_OR_PATH)
 
 prefix = "items: "
 # generation_kwargs = {
-#     "max_length": 1024,
-#     "min_length": 128,
+#     "max_length": 512,
+#     "min_length": 64,
 #     "no_repeat_ngram_size": 3,
-#     "do_sample": True,
-#     "top_k": 60,
-#     "top_p": 0.95
+#     "early_stopping": True,
+#     "num_beams": 5,
+#     "length_penalty": 1.5,
 # }
 generation_kwargs = {
     "max_length": 512,
     "min_length": 64,
     "no_repeat_ngram_size": 3,
-    "early_stopping": True,
-    "num_beams": 5,
-    "length_penalty": 1.5,
+    "do_sample": True,
+    "top_k": 60,
+    "top_p": 0.95
 }
+
 
 special_tokens = tokenizer.all_special_tokens
 tokens_map = {
@@ -214,14 +215,16 @@ Output:
 
 ## Evaluation
 
-The following table summarizes the scores obtained by the **Chef Transformer**. Those marked as (*) are the baseline models.
+Since the test set is not available, we will evaluate the model based on a shared test set. This test set consists of 5% of the whole test (*= 5,000 records*), 
+and we will generate five recipes for each input(*= 25,000 records*). 
+The following table summarizes the scores obtained by the **Chef Transformer** and **RecipeNLG** as our baseline.
 
-|      Model      |  WER  | COSIM | ROUGE-2 |
-| :-------------: | :---: | :---: | :-----: |
-|   Recipe1M+ *   | 0.786 | 0.589 |    -    |
-|   RecipeNLG *   | 0.751 | 0.666 |    -    |
-| ChefTransformer | 0.709 | 0.714 |  0.290  |
+|                                   Model                                  |    COSIM   |     WER    |   ROUGE-2  |    BLEU    |    GLEU    |   METEOR   |
+|:------------------------------------------------------------------------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|            [RecipeNLG](https://huggingface.co/mbien/recipenlg)           |   0.5723   |   1.2125   |   0.1354   |   0.1164   |   0.1503   |   0.2309   |
+| [Chef Transformer](huggingface.co/flax-community/t5-recipe-generation) * | **0.7282** | **0.7613** | **0.2470** | **0.3245** | **0.2624** | **0.4150** |
 
+*From the 5 generated recipes corresponding to each NER (food items), only the highest score was taken into account in the WER, COSIM, and ROUGE metrics. At the same time, BLEU, GLEU, Meteor were designed to have many possible references.*
 
 ## Streamlit demo
 
