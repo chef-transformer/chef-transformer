@@ -20,10 +20,12 @@ jobs:
           HF_USERNAME: m3hrdadfi
           HF_SPACE: huggingface.co/spaces/flax-community/chef-transformer
           TARGET_BRANCH: main
+          GIT_USER_EMAIL: chef.transformer@gmail.com
+          GIT_USER_NAME: Chef Transformer Github
         run: |
           echo "Cloning destination git repository"
-          git config --global user.email "chef.transformer@gmail.com"
-          git config --global user.name "Chef Transformer Github"
+          git config --global user.email "$GIT_USER_EMAIL"
+          git config --global user.name "$GIT_USER_NAME"
           CLONE_DIR=$(mktemp -d)
           git clone "https://$HF_USERNAME:$HF_TOKEN@$HF_SPACE" "$CLONE_DIR"
           ls -la "$CLONE_DIR"
