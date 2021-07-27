@@ -219,10 +219,10 @@ Since the test set is not available, we will evaluate the model based on a share
 and we will generate five recipes for each input(*= 25,000 records*). 
 The following table summarizes the scores obtained by the **Chef Transformer** and **RecipeNLG** as our baseline.
 
-|                                   Model                                  |    COSIM   |     WER    |   ROUGE-2  |    BLEU    |    GLEU    |   METEOR   |
-|:------------------------------------------------------------------------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|            [RecipeNLG](https://huggingface.co/mbien/recipenlg)           |   0.5723   |   1.2125   |   0.1354   |   0.1164   |   0.1503   |   0.2309   |
-| [Chef Transformer](huggingface.co/flax-community/t5-recipe-generation) * | **0.7282** | **0.7613** | **0.2470** | **0.3245** | **0.2624** | **0.4150** |
+|                                       Model                                      |    COSIM   |     WER    |   ROUGE-2  |    BLEU    |    GLEU    |   METEOR   |
+|:--------------------------------------------------------------------------------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|                [RecipeNLG](https://huggingface.co/mbien/recipenlg)               |   0.5723   |   1.2125   |   0.1354   |   0.1164   |   0.1503   |   0.2309   |
+| [Chef Transformer](https://huggingface.co/flax-community/t5-recipe-generation) * | **0.7282** | **0.7613** | **0.2470** | **0.3245** | **0.2624** | **0.4150** |
 
 *From the 5 generated recipes corresponding to each NER (food items), only the highest score was taken into account in the WER, COSIM, and ROUGE metrics. At the same time, BLEU, GLEU, Meteor were designed to have many possible references.*
 
