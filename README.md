@@ -214,7 +214,9 @@ Output:
 ```
 
 ## Evaluation
+...
 
+### Result
 Since the test set is not available, we will evaluate the model based on a shared test set. This test set consists of 5% of the whole test (*= 5,000 records*), 
 and we will generate five recipes for each input(*= 25,000 records*). 
 The following table summarizes the scores obtained by the **Chef Transformer** and **RecipeNLG** as our baseline.
