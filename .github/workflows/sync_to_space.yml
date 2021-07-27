@@ -36,6 +36,8 @@ jobs:
           echo "commit message:"
           echo "$COMMIT_MESSAGE"
           cd "$CLONE_DIR"
+          echo "Ignore eval directory:"
+          rm -rf eval
           echo "Files that will be pushed:"
           ls -la
           echo "git add:"
