@@ -27,6 +27,8 @@ jobs:
           git config --global user.email "$GIT_USER_EMAIL"
           git config --global user.name "$GIT_USER_NAME"
           CLONE_DIR=$(mktemp -d)
+          CURR_DIR=$(pwd)
+          git lfs install
           git clone "https://$HF_USERNAME:$HF_TOKEN@$HF_SPACE" "$CLONE_DIR"
           ls -la "$CLONE_DIR"
           echo "Copy contents to clone git repository"
