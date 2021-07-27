@@ -885,4 +885,3 @@ local.properties
 *.tmp.py
 *.tmp.json
 tmp
-eval
