@@ -33,7 +33,7 @@ from utils.utils import (
 
 class TextGeneration:
     def __init__(self):
-        self.debug = False
+        self.debug = True
         self.dummy_outputs = dummy.recipes
         self.tokenizer = None
         self.generator = None
@@ -200,12 +200,12 @@ def main():
     remote_css("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@600&display=swap")
     local_css("asset/css/style.css")
 
-    col1, col2 = st.beta_columns([6, 4])
+    col1, col2 = st.columns([6, 4])
     with col2:
         st.image(load_image_from_local("asset/images/chef-transformer-transparent.png"), width=300)
         st.markdown(meta.SIDEBAR_INFO, unsafe_allow_html=True)
 
-        with st.beta_expander("Where did this story start?", expanded=True):
+        with st.expander("Where did this story start?", expanded=True):
             st.markdown(meta.STORY, unsafe_allow_html=True)
 
     with col1:
@@ -274,7 +274,7 @@ def main():
 
                 generated_recipe["by"] = chef
 
-                r1, r2 = st.beta_columns([6, 2])
+                r1, r2 = st.columns([6, 2])
 
                 with r2:
                     # st.write(st.session_state.get_random_frame)
