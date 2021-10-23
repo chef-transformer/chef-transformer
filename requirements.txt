@@ -1,5 +1,6 @@
 streamlit==1.1.0
-transformers
+datasets==1.11.0
+transformers==4.9.2
 torch
 Pillow
 requests
